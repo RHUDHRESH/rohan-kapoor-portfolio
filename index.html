@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en-IN">
+<html lang="en-IN" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Rohan Kapoor — Premium Indian wedding photography in Chandigarh and worldwide. Heirloom photographs that preserve how your wedding felt.">
   <meta name="theme-color" content="#171717">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://rohan-kapoor-zeta.vercel.app/">
+  <link rel="canonical" href="https://rohan-kapoor.vercel.app/">
 
   <meta property="og:title" content="Rohan Kapoor | Premium Indian Wedding Photography">
   <meta property="og:description" content="You deserve to remember how it felt — not just how it looked. Premium Indian wedding photography for families who want heirlooms.">
-  <meta property="og:image" content="https://rohan-kapoor-zeta.vercel.app/images/B2.jpg">
+  <meta property="og:image" content="https://rohan-kapoor.vercel.app/images/B2.jpg">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://rohan-kapoor-zeta.vercel.app/">
+  <meta property="og:url" content="https://rohan-kapoor.vercel.app/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Rohan Kapoor | Premium Indian Wedding Photography">
   <meta name="twitter:description" content="Premium Indian wedding photography in Chandigarh and worldwide. Heirloom photographs that preserve how your wedding felt.">
-  <meta name="twitter:image" content="https://rohan-kapoor-zeta.vercel.app/images/B2.jpg">
+  <meta name="twitter:image" content="https://rohan-kapoor.vercel.app/images/B2.jpg">
 
   <title>Rohan Kapoor | Premium Indian Wedding Photography</title>
 
@@ -29,7 +29,7 @@
     "email": "hello@rohankapoor.photo",
     "areaServed": ["Chandigarh, India", "India", "Worldwide"],
     "sameAs": ["https://instagram.com/rohankapoor.photo"],
-    "image": "https://rohan-kapoor-zeta.vercel.app/images/B2.jpg"
+    "image": "https://rohan-kapoor.vercel.app/images/B2.jpg"
   }
   </script>
 
@@ -51,7 +51,7 @@
     .hero__media img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
   </style>
 
-  <link rel="stylesheet" href="styles.css?v=opt2">
+  <link rel="stylesheet" href="styles.css?v=opt3">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -94,7 +94,7 @@
         <a href="#family">Family</a>
         <a href="#booking" class="nav__book-link">Book</a>
       </nav>
-      <a href="#booking" class="nav__book">Book</a>
+      <a href="#booking" class="nav__book nav__book--filled" data-cta="nav-book">Book</a>
       <button class="nav__burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
         <span></span><span></span><span></span>
       </button>
@@ -139,8 +139,8 @@
             <span aria-hidden="true" data-split="words">Premium Indian wedding photography for families who want <span class="tx-hl">heirlooms</span>, not a camera roll.</span>
           </p>
           <div class="hero__actions">
-            <a href="#booking" class="btn btn--gold">Begin Your Story</a>
-            <a href="#chapters" class="btn btn--ghost">See the day unfold</a>
+            <a href="#booking" class="btn btn--gold" data-cta="hero-primary">Begin Your Story</a>
+            <a href="#chapters" class="btn btn--ghost" data-cta="hero-secondary">See the day unfold</a>
           </div>
         </div>
       </div>
@@ -286,6 +286,7 @@
 
     <!-- 5. Chapter II — Groom horizontal scroll -->
     <section class="groom-scroll perf-section" id="groom" aria-labelledby="groom-title">
+      <p class="sr-only">This section scrolls horizontally through three groom-side moments: the sehra, the baraat, and brotherhood portraits.</p>
       <header class="groom-scroll__head container reveal-head">
         <p class="chapter__num" aria-hidden="true" style="color:var(--gold-light)">II</p>
         <p class="eyebrow eyebrow--light">Chapter II</p>
@@ -567,24 +568,7 @@
           <p class="eyebrow">Investment</p>
           <h2 class="display display--md" id="packages-title">Packages</h2>
         </header>
-        <div class="packages reveal-grid" style="margin-top:2rem">
-          <article class="package">
-            <h3 class="package__name">Essential</h3>
-            <p class="package__range">From ₹1.8L</p>
-            <p class="package__list">Full-day coverage · 400+ edited images · Online gallery</p>
-          </article>
-          <article class="package package--featured">
-            <span class="package__badge">Most chosen</span>
-            <h3 class="package__name">Heirloom</h3>
-            <p class="package__range">From ₹2.8L</p>
-            <p class="package__list">Two photographers · Album · Parent albums · Priority editing</p>
-          </article>
-          <article class="package">
-            <h3 class="package__name">Destination</h3>
-            <p class="package__range">Custom</p>
-            <p class="package__list">Multi-day coverage · Travel included · Fine-art print suite</p>
-          </article>
-        </div>
+        <div class="packages reveal-grid" id="packages-grid" style="margin-top:2rem"></div>
       </div>
     </section>
 
@@ -595,20 +579,7 @@
           <p class="eyebrow">Kind words</p>
           <h2 class="display display--md" id="testimonials-title">What couples remember</h2>
         </header>
-        <div class="testimonials reveal-grid" style="margin-top:2rem">
-          <blockquote class="testimonial">
-            <q>The haldi photograph — my mother laughing with turmeric on her cheeks — is the one our family prints for every anniversary. Rohan caught the chaos and the love in the same frame.</q>
-            <cite>Priya &amp; Arjun · Chandigarh · March 2025</cite>
-          </blockquote>
-          <blockquote class="testimonial">
-            <q>We didn't want a catalogue. We wanted our day. The baraat, the fire ritual, my father adjusting my dupatta — every frame feels like us.</q>
-            <cite>Ananya &amp; Vikram · Udaipur · November 2024</cite>
-          </blockquote>
-          <blockquote class="testimonial">
-            <q>The farewell at the resort — my grandmother waving beside my father — is the photograph I will keep forever. Rohan sees the emotion before you know it's there.</q>
-            <cite>Meera &amp; Rohit · New Chandigarh · February 2025</cite>
-          </blockquote>
-        </div>
+        <div class="testimonials reveal-grid" id="testimonials-grid" style="margin-top:2rem"></div>
       </div>
     </section>
 
@@ -659,11 +630,7 @@
               <span class="booking__link-k">Instagram</span>
               <span class="booking__link-v">@rohankapoor.photo</span>
             </a>
-            <ul class="booking__trust">
-              <li>Response within <strong>48 hours</strong></li>
-              <li>Only <strong>12 weddings</strong> per season</li>
-              <li>Consultation is <strong>complimentary</strong></li>
-            </ul>
+            <ul class="booking__trust" id="booking-trust"></ul>
           </aside>
 
           <form class="booking__form" id="inquiry-form" novalidate>
@@ -682,7 +649,8 @@
             <div class="field-row">
               <div class="field">
                 <label for="date">Wedding date</label>
-                <input type="date" id="date" name="date" required aria-describedby="date-error">
+                <input type="date" id="date" name="date" required aria-describedby="date-hint date-error">
+                <span class="field__hint" id="date-hint">If your date isn't fixed yet, share your best tentative month.</span>
                 <span class="field__error" id="date-error" role="alert"></span>
               </div>
               <div class="field">
@@ -700,11 +668,14 @@
                 <option value="destination">Destination — custom</option>
               </select>
             </div>
-            <div class="field">
-              <label for="message">Moments you refuse to lose</label>
-              <textarea id="message" name="message" placeholder="The haldi laugh, grandmother's blessing, baraat energy…" rows="4"></textarea>
+            <div class="field field--collapsible">
+              <button type="button" class="field__toggle" id="message-toggle" aria-expanded="false" aria-controls="message-panel">Tell me more about your story (optional)</button>
+              <div id="message-panel" hidden>
+                <label for="message">Moments you refuse to lose</label>
+                <textarea id="message" name="message" placeholder="The haldi laugh, grandmother's blessing, baraat energy…" rows="4" autocomplete="off"></textarea>
+              </div>
             </div>
-            <button type="submit" class="btn btn--ivory booking__submit">
+            <button type="submit" class="btn btn--ivory booking__submit" data-cta="form-submit">
               <span class="booking__submit-text">Book a Consultation</span>
               <span class="booking__submit-arrow" aria-hidden="true">→</span>
             </button>
@@ -760,37 +731,13 @@
   </div>
 
   <!-- Lightbox order: B4,B5,B14,B1,B2,B3,B18,B19,B6,B7,B12,B13,B15,B17,B20,B21,B23,B8,B9,B10,B11,B22,B16 -->
-  <script type="application/json" id="lightbox-data">
-  [
-    {"src":"images/B4.webp","jpg":"images/B4.jpg","cap":"Haldi Ceremony"},
-    {"src":"images/B5.webp","jpg":"images/B5.jpg","cap":"Mehndi Ceremony"},
-    {"src":"images/B14.webp","jpg":"images/B14.jpg","cap":"Mehndi Detail"},
-    {"src":"images/B1.webp","jpg":"images/B1.jpg","cap":"A thousand memories"},
-    {"src":"images/B2.webp","jpg":"images/B2.jpg","cap":"Golden Hour"},
-    {"src":"images/B3.webp","jpg":"images/B3.jpg","cap":"The Gaze"},
-    {"src":"images/B18.webp","jpg":"images/B18.jpg","cap":"Under the Mandap"},
-    {"src":"images/B19.webp","jpg":"images/B19.jpg","cap":"What remains"},
-    {"src":"images/B6.webp","jpg":"images/B6.jpg","cap":"Sisterhood"},
-    {"src":"images/B7.webp","jpg":"images/B7.jpg","cap":"With Parents"},
-    {"src":"images/B12.webp","jpg":"images/B12.jpg","cap":"Father's Blessing"},
-    {"src":"images/B13.webp","jpg":"images/B13.jpg","cap":"Family Blessing"},
-    {"src":"images/B15.webp","jpg":"images/B15.jpg","cap":"Generations"},
-    {"src":"images/B17.webp","jpg":"images/B17.jpg","cap":"Grandfather's Joy"},
-    {"src":"images/B20.webp","jpg":"images/B20.jpg","cap":"Getting Ready"},
-    {"src":"images/B21.webp","jpg":"images/B21.jpg","cap":"Reunion"},
-    {"src":"images/B23.webp","jpg":"images/B23.jpg","cap":"Courtyard Stories"},
-    {"src":"images/B8.webp","jpg":"images/B8.jpg","cap":"Sacred Fire"},
-    {"src":"images/B9.webp","jpg":"images/B9.jpg","cap":"The Sehra"},
-    {"src":"images/B10.webp","jpg":"images/B10.jpg","cap":"The Baraat"},
-    {"src":"images/B11.webp","jpg":"images/B11.jpg","cap":"Mandap Moment"},
-    {"src":"images/B22.webp","jpg":"images/B22.jpg","cap":"Brotherhood"},
-    {"src":"images/B16.webp","jpg":"images/B16.jpg","cap":"Until we meet again"}
-  ]
-  </script>
+  <script type="application/json" id="lightbox-data">[]</script>
 
+  <script src="data/content.js"></script>
+  <script src="content-render.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-  <script src="animations.js?v=opt3" defer></script>
+  <script src="animations.js?v=opt4" defer></script>
 </body>
 </html>

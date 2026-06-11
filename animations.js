@@ -13,9 +13,19 @@
   const mqMobile = window.matchMedia('(max-width: 767px)');
   const mqTouch = window.matchMedia('(hover: none), (pointer: coarse)');
   const mqDesktop = window.matchMedia('(min-width: 1200px)');
-  const isMobile = () => mqMobile.matches;
-  const isTouch = () => mqTouch.matches;
-  const isDesktop = () => mqDesktop.matches;
+
+  const ENV = {
+    prefersReduced,
+    hasGsap,
+    isMobile: () => mqMobile.matches,
+    isTouch: () => mqTouch.matches,
+    isDesktop: () => mqDesktop.matches,
+    canPin: () => hasGsap && !prefersReduced && !mqMobile.matches,
+  };
+
+  const isMobile = ENV.isMobile;
+  const isTouch = ENV.isTouch;
+  const isDesktop = ENV.isDesktop;
 
   let lenis = null;
   let pendingHash = window.location.hash;
@@ -866,6 +876,10 @@
       const jpg = photo.dataset.jpg;
       const img = qs('img', photo);
       if (!img || !webp) return;
+      if (!img.getAttribute('width')) {
+        img.setAttribute('width', '768');
+        img.setAttribute('height', '512');
+      }
 
       const loader = new Image();
       loader.onload = () => {
@@ -1065,6 +1079,9 @@
       if (invalid.length) {
         invalid[0].focus();
         showStatus('Check names, email, wedding date, and venue — those fields are required.', true);
+        window.dispatchEvent(new CustomEvent('site:form', {
+          detail: { event: 'form_error', fields: invalid.map((i) => i.id) },
+        }));
         return;
       }
 
@@ -1091,6 +1108,7 @@
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.detail || 'Submission failed');
         showStatus(data.message || 'Thank you — Rohan will respond within 48 hours.', false);
+        window.dispatchEvent(new CustomEvent('site:form', { detail: { event: 'form_success' } }));
         form.reset();
         qsa('.field', form).forEach((f) => f.classList.remove('field--error'));
         qsa('input, textarea, select', form).forEach((input) => {
@@ -1107,8 +1125,10 @@
         }
         return;
       } catch (err) {
+        window.dispatchEvent(new CustomEvent('site:form', { detail: { event: 'form_fail' } }));
+        const mail = window.SITE?.contact?.email || 'hello@rohankapoor.photo';
         showStatus(
-          'Something went wrong — please <a href="mailto:hello@rohankapoor.photo" style="color:inherit;text-decoration:underline">email hello@rohankapoor.photo</a> directly.',
+          `Something went wrong — please <a href="mailto:${mail}" style="color:inherit;text-decoration:underline">email ${mail}</a> directly.`,
           true,
           true
         );
