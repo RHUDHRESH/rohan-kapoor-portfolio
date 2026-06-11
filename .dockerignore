@@ -1,0 +1,6 @@
+.review
+data/inquiries.json
+__pycache__
+*.pyc
+.env
+.git

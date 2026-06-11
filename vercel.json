@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "rohan-kapoor",
+  "builds": [
+    { "src": "api/inquiry.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/api/inquiry", "dest": "/api/inquiry.py", "methods": ["POST", "OPTIONS"] },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

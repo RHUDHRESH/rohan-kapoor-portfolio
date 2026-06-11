@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.review/
+.vercel/
+node_modules/
+data/inquiries.json
