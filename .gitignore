@@ -7,4 +7,5 @@ __pycache__/
 .vercel/
 node_modules/
 data/inquiries.json
+fonts/google.css
 .vercel

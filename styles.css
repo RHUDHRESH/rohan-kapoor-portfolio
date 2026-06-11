@@ -1,4 +1,19 @@
 /* Rohan Kapoor — Site 2 · Editorial Indian Wedding */
+@font-face{
+  font-family:"Cormorant Garamond";
+  font-style:normal;
+  font-weight:300 600;
+  font-display:swap;
+  src:url("fonts/cormorant-latin.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Jost";
+  font-style:normal;
+  font-weight:400 500;
+  font-display:swap;
+  src:url("fonts/jost-latin.woff2") format("woff2");
+}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:auto;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{font-family:var(--font-sans);font-size:1rem;line-height:1.65;color:var(--charcoal);background:var(--ivory);overflow-x:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
@@ -29,10 +44,14 @@ figure{margin:0}
   --shadow-lg:0 24px 60px rgba(23,23,23,.14);
 }
 
-/* Grain overlay */
+/* Grain overlay — static tile (GPU layer, no feTurbulence repaint) */
 body::after{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image:url("images/static-grain.png");
+  background-repeat:repeat;
+  background-size:64px 64px;
+  transform:translate3d(0,0,0);
+  will-change:transform;
 }
 
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -64,6 +83,13 @@ body::after{
 .preloader__pct{font-family:var(--font-serif);font-size:.85rem;letter-spacing:.2em;color:rgba(247,244,239,.45);opacity:0}
 .preloader__bar{width:min(160px,40vw);height:1px;background:rgba(247,244,239,.12);overflow:hidden}
 .preloader__bar-fill{height:100%;width:0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.preloader__skip{
+  margin-top:1.5rem;padding:.45rem .85rem;background:transparent;border:none;
+  font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(247,244,239,.45);
+  cursor:pointer;transition:color .25s
+}
+.preloader__skip:hover,.preloader__skip:focus{color:var(--gold);outline:none}
+.preloader__skip:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
 
 /* Nav */
 .nav{position:fixed;top:2px;left:0;right:0;z-index:1000;height:var(--nav-h);transition:transform .35s var(--ease),background .35s}
@@ -330,6 +356,9 @@ body::after{
 .field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(184,154,99,.65);background:rgba(247,244,239,.1);box-shadow:0 0 0 3px rgba(184,154,99,.12);outline:none}
 .field input::placeholder,.field textarea::placeholder{color:rgba(247,244,239,.35)}
 .field textarea{min-height:110px;resize:vertical}
+.field--error input,.field--error textarea,.field--error select{border-color:rgba(255,120,120,.65);box-shadow:0 0 0 3px rgba(255,120,120,.12)}
+.field__error{display:block;margin-top:.4rem;font-size:.72rem;color:#ffd4d4;letter-spacing:.02em}
+.field__error:empty{display:none}
 .booking__submit{width:100%;margin-top:.35rem;justify-content:center;gap:.75rem}
 .booking__submit-arrow{transition:transform .25s var(--ease)}
 .booking__submit:hover .booking__submit-arrow{transform:translateX(4px)}

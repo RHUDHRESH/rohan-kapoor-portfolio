@@ -135,9 +135,38 @@
     const el = qs('#preloader');
     if (!el) { onDone(); return; }
 
-    if (!hasGsap || prefersReduced) {
+    let finished = false;
+    const complete = () => {
+      if (finished) return;
+      finished = true;
       el.classList.add('is-done');
+      try { localStorage.setItem('hasSeenIntro', '1'); } catch (_) { /* private mode */ }
       onDone();
+    };
+
+    const skipBtn = qs('#preloader-skip', el);
+    const hasSeenIntro = (() => {
+      try { return localStorage.getItem('hasSeenIntro') === '1'; } catch (_) { return false; }
+    })();
+
+    const quickExit = () => {
+      if (finished) return;
+      if (hasGsap && !prefersReduced) {
+        gsap.to(el, {
+          opacity: 0,
+          duration: prefersReduced ? 0.2 : 0.45,
+          ease: 'power2.inOut',
+          onComplete: complete,
+        });
+      } else {
+        complete();
+      }
+    };
+
+    skipBtn?.addEventListener('click', quickExit);
+
+    if (!hasGsap || prefersReduced || hasSeenIntro) {
+      quickExit();
       return;
     }
 
@@ -147,18 +176,14 @@
     const pct = qs('#preloader-pct', el);
     const preview = qs('.preloader__preview', el);
     const frames = qsa('.preloader__frame', el);
-
     const counter = { val: 0 };
 
     const runIntro = () => {
+      if (finished) return;
       const tl = gsap.timeline({
         onComplete: () => {
-          const out = gsap.timeline({
-            onComplete: () => {
-              el.classList.add('is-done');
-              onDone();
-            },
-          });
+          if (finished) return;
+          const out = gsap.timeline({ onComplete: complete });
           out.to(preview, { scale: 1.35, opacity: 0, duration: 0.9, ease: 'power2.inOut' })
             .to(el, { opacity: 0, duration: 0.55, ease: 'power2.inOut' }, '-=0.4')
             .to(frames, { opacity: 0, duration: 0.3 }, '-=0.55');
@@ -183,22 +208,21 @@
         }, '-=0.15');
     };
 
-    const finish = () => {
-      if (el.classList.contains('is-done')) return;
-      el.classList.add('is-done');
-      onDone();
-    };
-
     const preloadUrls = isMobile()
       ? ['images/B2-sm.webp', 'images/stakes-bg.webp']
       : ['images/B2-md.webp', 'images/stakes-bg-md.webp'];
     const maxWait = isMobile() ? 3200 : 5500;
-
-    setTimeout(finish, maxWait);
+    const safetyTimer = setTimeout(quickExit, maxWait);
 
     waitForImages(preloadUrls)
-      .then(() => gsap.delayedCall(0.15, runIntro))
-      .catch(() => gsap.delayedCall(0.15, runIntro));
+      .then(() => {
+        clearTimeout(safetyTimer);
+        if (!finished) gsap.delayedCall(0.15, runIntro);
+      })
+      .catch(() => {
+        clearTimeout(safetyTimer);
+        if (!finished) gsap.delayedCall(0.15, runIntro);
+      });
   }
 
   /* ══════════════════════════════════════════
@@ -303,27 +327,54 @@
       });
     }
 
+    const drawerLinks = qsa('.drawer__panel a');
+    let drawerOpen = false;
+
+    function trapDrawerFocus(e) {
+      if (!drawerOpen || e.key !== 'Tab') return;
+      const focusables = drawerLinks.filter((a) => !a.hasAttribute('disabled'));
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
     function openDrawer() {
       drawer?.classList.add('is-open');
       drawer?.setAttribute('aria-hidden', 'false');
       burger?.setAttribute('aria-expanded', 'true');
+      burger?.setAttribute('aria-label', 'Close menu');
       document.body.style.overflow = 'hidden';
+      drawerOpen = true;
+      drawerLinks[0]?.focus();
     }
 
     function closeDrawer() {
+      if (!drawerOpen) return;
       drawer?.classList.remove('is-open');
       drawer?.setAttribute('aria-hidden', 'true');
       burger?.setAttribute('aria-expanded', 'false');
+      burger?.setAttribute('aria-label', 'Open menu');
       document.body.style.overflow = '';
+      drawerOpen = false;
+      burger?.focus();
     }
 
     burger?.addEventListener('click', () => {
-      drawer?.classList.contains('is-open') ? closeDrawer() : openDrawer();
+      drawerOpen ? closeDrawer() : openDrawer();
     });
     shade?.addEventListener('click', closeDrawer);
-    qsa('.drawer__panel a').forEach((a) => a.addEventListener('click', closeDrawer));
+    drawerLinks.forEach((a) => a.addEventListener('click', closeDrawer));
     document.addEventListener('keydown', (e) => {
+      if (!drawerOpen) return;
       if (e.key === 'Escape') closeDrawer();
+      trapDrawerFocus(e);
     });
 
     /* Smooth anchor scroll */
@@ -954,11 +1005,48 @@
     if (!form) return;
 
     const submitBtn = form.querySelector('[type="submit"]');
-    const defaultLabel = submitBtn?.textContent || 'Book a Consultation';
+    const submitText = qs('.booking__submit-text', submitBtn) || submitBtn;
+    const defaultLabel = submitText?.textContent || 'Book a Consultation';
 
-    const showStatus = (text, isError) => {
+    const fieldMessages = {
+      name: 'Please enter your names.',
+      email: 'Please enter a valid email address.',
+      date: 'Please choose your wedding date.',
+      venue: 'Please enter your venue or city.',
+    };
+
+    const syncFieldState = (input) => {
+      const field = input.closest('.field');
+      if (!field) return;
+      const errEl = qs('.field__error', field);
+      const valid = input.validity.valid;
+
+      field.classList.toggle('field--error', !valid);
+      input.setAttribute('aria-invalid', valid ? 'false' : 'true');
+
+      if (errEl) {
+        errEl.textContent = valid ? '' : (fieldMessages[input.id] || input.validationMessage);
+      }
+    };
+
+    qsa('input, textarea, select', form).forEach((input) => {
+      input.addEventListener('invalid', (e) => {
+        e.preventDefault();
+        syncFieldState(input);
+      });
+      input.addEventListener('input', () => syncFieldState(input));
+      input.addEventListener('blur', () => {
+        if (input.value) syncFieldState(input);
+      });
+    });
+
+    const showStatus = (text, isError, isHtml) => {
       if (!status) return;
-      status.textContent = text;
+      if (isHtml) {
+        status.innerHTML = text;
+      } else {
+        status.textContent = text;
+      }
       status.style.color = isError ? '#ffd4d4' : '';
       if (hasGsap && !prefersReduced) {
         gsap.fromTo(status, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45 });
@@ -967,8 +1055,16 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
+
+      const invalid = qsa('input, textarea, select', form).filter((input) => {
+        const ok = input.checkValidity();
+        syncFieldState(input);
+        return !ok;
+      });
+
+      if (invalid.length) {
+        invalid[0].focus();
+        showStatus('Check names, email, wedding date, and venue — those fields are required.', true);
         return;
       }
 
@@ -983,7 +1079,7 @@
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
+        submitText.textContent = 'Sending…';
       }
 
       try {
@@ -996,13 +1092,31 @@
         if (!res.ok) throw new Error(data.detail || 'Submission failed');
         showStatus(data.message || 'Thank you — Rohan will respond within 48 hours.', false);
         form.reset();
-      } catch (err) {
-        showStatus('Something went wrong — please email hello@rohankapoor.photo directly.', true);
-      } finally {
+        qsa('.field', form).forEach((f) => f.classList.remove('field--error'));
+        qsa('input, textarea, select', form).forEach((input) => {
+          input.setAttribute('aria-invalid', 'false');
+          const errEl = qs('.field__error', input.closest('.field'));
+          if (errEl) errEl.textContent = '';
+        });
         if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = defaultLabel;
+          submitText.textContent = 'Sent ✓';
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitText.textContent = defaultLabel;
+          }, 2800);
         }
+        return;
+      } catch (err) {
+        showStatus(
+          'Something went wrong — please <a href="mailto:hello@rohankapoor.photo" style="color:inherit;text-decoration:underline">email hello@rohankapoor.photo</a> directly.',
+          true,
+          true
+        );
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitText.textContent = defaultLabel;
       }
     });
   }

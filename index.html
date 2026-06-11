@@ -1,22 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Rohan Kapoor — Premium Indian wedding photography in Chandigarh and worldwide. Heirloom photographs that preserve how your wedding felt.">
   <meta name="theme-color" content="#171717">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://rohan-kapoor-zeta.vercel.app/">
 
   <meta property="og:title" content="Rohan Kapoor | Premium Indian Wedding Photography">
   <meta property="og:description" content="You deserve to remember how it felt — not just how it looked. Premium Indian wedding photography for families who want heirlooms.">
-  <meta property="og:image" content="images/B2.jpg">
+  <meta property="og:image" content="https://rohan-kapoor-zeta.vercel.app/images/B2.jpg">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rohan-kapoor-zeta.vercel.app/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rohan Kapoor | Premium Indian Wedding Photography">
+  <meta name="twitter:description" content="Premium Indian wedding photography in Chandigarh and worldwide. Heirloom photographs that preserve how your wedding felt.">
+  <meta name="twitter:image" content="https://rohan-kapoor-zeta.vercel.app/images/B2.jpg">
 
   <title>Rohan Kapoor | Premium Indian Wedding Photography</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Photographer",
+    "name": "Rohan Kapoor",
+    "description": "Premium Indian wedding photographer in Chandigarh, India and worldwide.",
+    "email": "hello@rohankapoor.photo",
+    "areaServed": ["Chandigarh, India", "India", "Worldwide"],
+    "sameAs": ["https://instagram.com/rohankapoor.photo"],
+    "image": "https://rohan-kapoor-zeta.vercel.app/images/B2.jpg"
+  }
+  </script>
 
   <link rel="icon" href="images/B2-xs.webp" type="image/webp">
   <link rel="shortcut icon" href="images/B2-xs.webp" type="image/webp">
@@ -36,7 +51,7 @@
     .hero__media img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
   </style>
 
-  <link rel="stylesheet" href="styles.css?v=opt1">
+  <link rel="stylesheet" href="styles.css?v=opt2">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -62,6 +77,7 @@
         <span class="preloader__pct" id="preloader-pct">0</span>
         <div class="preloader__bar"><div class="preloader__bar-fill"></div></div>
       </div>
+      <button type="button" class="preloader__skip" id="preloader-skip">Skip intro</button>
     </div>
   </div>
 
@@ -112,12 +128,16 @@
       <div class="hero__content">
         <div class="hero__inner">
           <p class="eyebrow eyebrow--light hero__eyebrow"><span class="eyebrow__line"></span>For the bride who refuses to forget</p>
-          <h1 class="display display--xl hero__title" data-split="lines">
-            <span class="tx-line"><span class="tx-word">You</span> <span class="tx-word">deserve</span> <span class="tx-word">to</span> <span class="tx-word">remember</span></span>
-            <span class="tx-line"><span class="tx-word">how</span> <span class="tx-word tx-hl">it</span> <span class="tx-word tx-hl">felt</span></span>
-            <span class="tx-line tx-line--accent"><em>— not just how it looked.</em></span>
+          <h1 class="display display--xl hero__title" aria-label="You deserve to remember how it felt — not just how it looked.">
+            <span aria-hidden="true" data-split="lines">
+              <span class="tx-line"><span class="tx-word">You</span> <span class="tx-word">deserve</span> <span class="tx-word">to</span> <span class="tx-word">remember</span></span>
+              <span class="tx-line"><span class="tx-word">how</span> <span class="tx-word tx-hl">it</span> <span class="tx-word tx-hl">felt</span></span>
+              <span class="tx-line tx-line--accent"><em>— not just how it looked.</em></span>
+            </span>
           </h1>
-          <p class="hero__sub" data-split="words">Premium Indian wedding photography for families who want <span class="tx-hl">heirlooms</span>, not a camera roll.</p>
+          <p class="hero__sub" aria-label="Premium Indian wedding photography for families who want heirlooms, not a camera roll.">
+            <span aria-hidden="true" data-split="words">Premium Indian wedding photography for families who want <span class="tx-hl">heirlooms</span>, not a camera roll.</span>
+          </p>
           <div class="hero__actions">
             <a href="#booking" class="btn btn--gold">Begin Your Story</a>
             <a href="#chapters" class="btn btn--ghost">See the day unfold</a>
@@ -132,6 +152,7 @@
 
     <!-- 2. Stakes — sacred fire (premium cinematic) -->
     <section class="stakes perf-section" id="stakes" aria-labelledby="stakes-title">
+      <p class="sr-only">Scrolling reveals the emotional truth behind heirloom wedding photography — your day passes in a breath, but what remains should be worthy of your love.</p>
       <div class="stakes__bg" aria-hidden="true">
         <picture class="photo photo--fill photo--premium is-loaded">
           <source media="(min-width: 768px)" srcset="images/stakes-bg-md.webp" type="image/webp">
@@ -143,12 +164,18 @@
       <div class="stakes__content">
         <div class="stakes__inner">
           <p class="eyebrow eyebrow--light stakes__eyebrow"><span class="eyebrow__line"></span>The truth</p>
-          <h2 class="display display--xxl stakes__title" id="stakes-title" data-split="lines">
-            <span class="tx-line"><span class="tx-word">Your</span> <span class="tx-word">wedding</span> <span class="tx-word">day</span></span>
-            <span class="tx-line"><span class="tx-word">will</span> <span class="tx-word tx-hl" data-hl>pass</span> <span class="tx-word tx-hl" data-hl>in</span> <span class="tx-word tx-hl" data-hl>a</span> <span class="tx-word tx-hl" data-hl>breath.</span></span>
+          <h2 class="display display--xxl stakes__title" id="stakes-title" aria-label="Your wedding day will pass in a breath.">
+            <span aria-hidden="true" data-split="lines">
+              <span class="tx-line"><span class="tx-word">Your</span> <span class="tx-word">wedding</span> <span class="tx-word">day</span></span>
+              <span class="tx-line"><span class="tx-word">will</span> <span class="tx-word tx-hl" data-hl>pass</span> <span class="tx-word tx-hl" data-hl>in</span> <span class="tx-word tx-hl" data-hl>a</span> <span class="tx-word tx-hl" data-hl>breath.</span></span>
+            </span>
           </h2>
-          <p class="stakes__highlight" data-split="words">What <span class="tx-hl" data-hl>remains</span> should be <span class="tx-hl" data-hl>worthy</span> of your love.</p>
-          <p class="stakes__body body-text body-text--light" data-split="words">Most couples are left with thousands of images they'll never open again — beautiful, but <span class="tx-hl" data-hl>forgettable</span>. Yours should feel like the day itself: alive, layered, and impossible to put down.</p>
+          <p class="stakes__highlight" aria-label="What remains should be worthy of your love.">
+            <span aria-hidden="true" data-split="words">What <span class="tx-hl" data-hl>remains</span> should be <span class="tx-hl" data-hl>worthy</span> of your love.</span>
+          </p>
+          <p class="stakes__body body-text body-text--light" aria-label="Most couples are left with thousands of images they'll never open again. Yours should feel like the day itself: alive, layered, and impossible to put down.">
+            <span aria-hidden="true" data-split="words">Most couples are left with thousands of images they'll never open again — beautiful, but <span class="tx-hl" data-hl>forgettable</span>. Yours should feel like the day itself: alive, layered, and impossible to put down.</span>
+          </p>
           <p class="stakes__aside">This is why I photograph feelings first.</p>
         </div>
       </div>
@@ -156,6 +183,7 @@
 
     <!-- 3. Promise pin — B3, B7, B8, B13 -->
     <section class="promise perf-section" id="promise" aria-label="Your story in four moments">
+      <p class="sr-only">This section scrolls through four full-screen photographs telling your wedding story: your dream, the problem, the guide, and the result.</p>
       <div class="promise__pin" id="promise-pin">
         <article class="promise__slide is-first" data-slide="0">
           <div class="promise__bg" aria-hidden="true">
@@ -461,6 +489,7 @@
 
     <!-- 9. Signature — B1 -->
     <section class="signature perf-section" id="signature" aria-label="Signature photograph">
+      <p class="sr-only">A pinned signature photograph section celebrating one image that holds a thousand memories.</p>
       <div class="signature__bg" aria-hidden="true">
         <div class="photo photo--fill" data-src="images/B1.webp" data-jpg="images/B1.jpg" data-placeholder="images/B1-placeholder.webp">
           <div class="photo__shim"></div>
@@ -641,21 +670,25 @@
             <div class="field-row">
               <div class="field">
                 <label for="name">Your names</label>
-                <input type="text" id="name" name="name" placeholder="Priya &amp; Arjun" required autocomplete="name">
+                <input type="text" id="name" name="name" placeholder="Priya &amp; Arjun" required autocomplete="name" aria-describedby="name-error">
+                <span class="field__error" id="name-error" role="alert"></span>
               </div>
               <div class="field">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="hello@example.com" required autocomplete="email">
+                <input type="email" id="email" name="email" placeholder="hello@example.com" required autocomplete="email" aria-describedby="email-error">
+                <span class="field__error" id="email-error" role="alert"></span>
               </div>
             </div>
             <div class="field-row">
               <div class="field">
                 <label for="date">Wedding date</label>
-                <input type="date" id="date" name="date" required>
+                <input type="date" id="date" name="date" required aria-describedby="date-error">
+                <span class="field__error" id="date-error" role="alert"></span>
               </div>
               <div class="field">
                 <label for="venue">Venue / City</label>
-                <input type="text" id="venue" name="venue" placeholder="Chandigarh, Udaipur, Goa…" required>
+                <input type="text" id="venue" name="venue" placeholder="Chandigarh, Udaipur, Goa…" required aria-describedby="venue-error">
+                <span class="field__error" id="venue-error" role="alert"></span>
               </div>
             </div>
             <div class="field">
@@ -758,6 +791,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-  <script src="animations.js?v=opt2" defer></script>
+  <script src="animations.js?v=opt3" defer></script>
 </body>
 </html>
